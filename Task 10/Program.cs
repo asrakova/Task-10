@@ -10,6 +10,16 @@ namespace Task_10
     {
         static void Main(string[] args)
         {
+            int size = int.Parse(Console.ReadLine());
+            BinTree Tree = new BinTree();
+            Tree = BinTree.ProdIdealTree(size, Tree);
+            Console.WriteLine("Сформироманый список: ");
+            BinTree.ShowTree(Tree, size);
+
+            Tree = BinTree.AddElement(Tree);
+            Console.WriteLine("Сформироманый список: ");
+            BinTree.ShowTree(Tree, size);
+            Console.ReadLine();
         }
     }
 }
