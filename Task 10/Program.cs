@@ -10,15 +10,25 @@ namespace Task_10
     {
         static void Main(string[] args)
         {
-            int size = int.Parse(Console.ReadLine());
+            // Создание дерева
+            Console.WriteLine("Введите количество вершин дерева");
+            int size = ReadCheak.ReadPositve();
             BinTree Tree = new BinTree();
             Tree = BinTree.ProdIdealTree(size, Tree);
-            Console.WriteLine("Сформироманый список: ");
+            // Вывод дерева
+            Console.WriteLine("Сформированый список: ");
             BinTree.ShowTree(Tree, size);
 
-            Tree = BinTree.AddElement(Tree);
-            Console.WriteLine("Сформироманый список: ");
-            BinTree.ShowTree(Tree, size);
+            // Добавление вершин
+            Console.WriteLine("Добавление элементов:");
+            Console.WriteLine("Введите количество добавляемых вершин");
+            int NumAdd = ReadCheak.ReadPositve();
+            for (int i = 1; i <= NumAdd; i++)
+            {
+                Tree = BinTree.AddElement(Tree);
+                Console.WriteLine("Сформированый список: ");
+                BinTree.ShowTree(Tree, size);
+            }
             Console.ReadLine();
         }
     }

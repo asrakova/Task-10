@@ -8,10 +8,10 @@ namespace Task_10
 {
     class BinTree
     {
-        public int data;
-        public BinTree left,  //адрес левого поддерева 
-                       right; //адрес правого поддерева
-        private static int[] arr;
+        public int data;            // Данные вершины
+        public BinTree left,        // Адрес левого поддерева 
+                       right;       // Адрес правого поддерева
+        private static int[] arr;   // Вершины дерева
         public BinTree()
         {
             data = 0;
@@ -29,20 +29,27 @@ namespace Task_10
             return data + " ";
         }
 
-        public static BinTree ProdIdealTree(int size, BinTree p)
+        /// <summary>
+        /// Создание сбалансированного дерева
+        /// </summary>
+        /// <param name="size">Количество вершин</param>
+        /// <param name="tree">Дерево</param>
+        /// <returns>Сбалансированное дерево</returns>
+        public static BinTree ProdIdealTree(int size, BinTree tree)
         {
+            // Заполнение массива
             arr = new int[size];
-            for (int i = 0; i<size; i++)
+            for (int i = 0; i < size; i++)
             {
-                Console.WriteLine("Введите {0}й элемент", i+1);
-                arr[i] = int.Parse(Console.ReadLine());                
+                Console.WriteLine("Введите {0}й элемент", i + 1);
+                arr[i] = ReadCheak.ReadInt();
             }
             int j = 0;
-            return p = IdealTree(size, p, ref j, arr);
+            // Создание сбалансированного дерева по массиву вершин
+            return IdealTree(size, tree, ref j, arr);
         }
 
-
-        //формирование идеально-сбалансированного дерева
+        // Формирование идеально-сбалансированного дерева       
         private static BinTree IdealTree(int size, BinTree p, ref int i, int[] arr)
         {
             BinTree r;
@@ -58,43 +65,59 @@ namespace Task_10
             return p;
         }
 
-        //печать дерева по уровням
-        public static void ShowTree(BinTree p, int l)
+        /// <summary>
+        /// Печать дерева по уровням
+        /// </summary>
+        /// <param name="tree">Дерево</param>
+        /// <param name="loc">Положение</param>
+        public static void ShowTree(BinTree tree, int loc)
         {
-            if (p != null)
+            if (tree != null)
             {
-                BinTree.ShowTree(p.left, l + 3);//переход к левому поддереву
-                for (int i = 0; i < l; i++) Console.Write(" ");
-                Console.WriteLine(p.data);
-                BinTree.ShowTree(p.right, l + 3);//переход к правому поддереву
+                BinTree.ShowTree(tree.left, loc + 3);   // Переход к левому поддереву
+                for (int i = 0; i < loc; i++) Console.Write(" ");
+                Console.WriteLine(tree.data);
+                BinTree.ShowTree(tree.right, loc + 3);  // Переход к правому поддереву
             }
         }
 
-        //формирование элемента дерева
+        /// <summary>
+        /// Формирование элемента дерева
+        /// </summary>
+        /// <param name="d">Данные</param>
+        /// <returns>Элемент дерева</returns>
         public static BinTree MakeBinTree(int d)
         {
             BinTree p = new BinTree(d);
             return p;
         }
 
-
-        public static BinTree AddElement(BinTree p)
+        /// <summary>
+        /// Добавление элемента и балансировка дерева
+        /// </summary>
+        /// <param name="tree">Дерево</param>
+        /// <returns>Сбалансированное дерево с добавленной вершиной</returns>
+        public static BinTree AddElement(BinTree tree)
         {
+            // Копирование элементов дерева
             int[] CopyArr = new int[arr.Length];
-            for (int i = 0; i<arr.Length; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
                 CopyArr[i] = arr[i];
             }
+            // Увеличение числа вершин в массиве
             arr = new int[CopyArr.Length + 1];
+            // Возвращение элементов в массив
             for (int i = 0; i < CopyArr.Length; i++)
             {
                 arr[i] = CopyArr[i];
             }
+            // Добавление вершины
             Console.WriteLine("Введите элемент");
-            arr[arr.Length - 1] = int.Parse(Console.ReadLine());
+            arr[arr.Length - 1] = ReadCheak.ReadInt();
             int j = 0;
-            p = IdealTree(arr.Length, p, ref j, arr);
-            return p;
+            // Сбалансирование дерева
+            return IdealTree(arr.Length, tree, ref j, arr);
         }
 
     }
